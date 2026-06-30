@@ -1,0 +1,4 @@
+interface:
+  display_name: "XLSX to PRD"
+  short_description: "将 Excel 需求清单转换为 PRD 与页面化开发 TODO"
+  default_prompt: "Use $xlsx2prd to convert this XLSX requirements list into a traceable PRD and page-based Epic/Story TODO files."

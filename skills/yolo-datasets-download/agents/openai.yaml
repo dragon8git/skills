@@ -1,0 +1,4 @@
+interface:
+  display_name: "YOLO Dataset Download"
+  short_description: "Generate and test YOLO dataset downloader"
+  default_prompt: "Use $yolo-datasets-download to generate a Python script that converts an Ultralytics NDJSON export into a YOLO dataset, test it, and update README.md."
