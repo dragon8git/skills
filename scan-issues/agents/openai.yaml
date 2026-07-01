@@ -1,0 +1,4 @@
+interface:
+  display_name: "Scan Issues"
+  short_description: "扫描 .issues 标准待办文档并逐项开发验证推进状态"
+  default_prompt: "Use $scan-issues to scan .issues markdown tasks, implement YAML status todo dev or bug notes one by one, and advance each issue status after verification."
