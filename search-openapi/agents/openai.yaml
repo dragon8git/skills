@@ -1,0 +1,4 @@
+interface:
+  display_name: "Search OpenAPI"
+  short_description: "Search local OpenAPI JSON specs."
+  default_prompt: "Use $search-openapi to inspect a local api.openai.json file and return the exact API details I need."
