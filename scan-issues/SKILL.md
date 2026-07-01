@@ -1,16 +1,16 @@
 ---
 name: scan-issues
-description: "Scan existing `.issues` markdown task files in the current working tree, find standard docs whose YAML frontmatter has `status: todo` and type like `dev`, `requirement`, `需求`, `bug`, or `fixbug`, then implement them one by one in the current repo and move each issue forward after verification. Use when the user wants Codex to work through local `.issues` tasks instead of just listing them, especially in repos that track work as markdown files, and only the files that currently exist should be considered."
+description: "Scan `.issues` markdown task files that currently exist in the working tree, find standard docs whose YAML frontmatter has `status: todo` and type like `dev`, `requirement`, `需求`, `bug`, or `fixbug`, then implement them one by one in the current repo and move each issue forward after verification. Use when the user wants Codex to work through local `.issues` tasks instead of just listing them, especially in repos that track work as markdown files."
 ---
 
 # Scan Issues
 
 1. Read the repo root `AGENTS.md` and obey repo-local workflow before touching code.
 2. Scan only `.issues/**/*.md` that currently exist in the working tree.
-3. Treat the current filesystem state as the only source of truth for issue discovery:
-   - do not read git history, deleted blobs, old commits, stash entries, or reflog to discover issue files
-   - do not recreate, restore, checkout, or regenerate missing `.issues` files unless the user explicitly asks for recovery
-   - if an issue document was deleted from `.issues`, treat it as intentionally absent and out of scope for this skill
+3. Ignore everything outside the current `.issues` filesystem view:
+   - do not read git history, deleted blobs, old commits, stash entries, or reflog for issue discovery
+   - do not comment on which issue files used to exist
+   - do not discuss deleted, missing, or renamed issue files unless the user explicitly asks
 4. Treat a file as eligible only when all of these are true:
    - it already has YAML frontmatter
    - frontmatter contains `status`
@@ -36,7 +36,10 @@ description: "Scan existing `.issues` markdown task files in the current working
      - `review` when code is done but still needs manual/product verification
      - `done` only after the required verification is actually completed
      - keep `todo` if no reliable implementation was made
-   - when moving an issue from `todo` to `review`, update frontmatter `links` to include the files changed in that round; keep any original reference URL or URL list and append changed repo file paths rather than replacing them
+   - when moving an issue from `todo` to `review`, update frontmatter `links` to include only source code files changed in that round
+   - keep any original reference URL or URL list and append changed repo file paths rather than replacing them
+   - source code files here means implementation files such as `.uvue`, `.vue`, `.js`, `.ts`, `.uts`, `.css`, `.scss`, `.less`, `.json`, and similar code/config files that were intentionally edited for the task
+   - do not append backend API path strings, OpenAPI paths, screenshots, generated assets, icon files, font files, build artifacts, lockfiles, or other non-code byproducts unless the user explicitly asks for them
    - when moving an issue from `todo` to `review`, append this empty template at the end of the body for the next review round, using the next sequential round number:
 
 ```md
@@ -51,8 +54,8 @@ description: "Scan existing `.issues` markdown task files in the current working
 11. Do not silently rewrite issue content, filenames, or frontmatter shape here except for the intentional issue-log updates above: advancing `status`, updating `links`, and appending the next empty review template.
 12. Do not perform repository repair or issue inventory reconciliation here:
    - no git-based recovery
-   - no recreating deleted issue files from history
-   - no adding placeholder issue files to match prior scans or prior runs
+   - no recreating issue files from history
+   - no placeholder issue files
 
 ## Output
 
@@ -60,3 +63,4 @@ description: "Scan existing `.issues` markdown task files in the current working
 - Report that each issue was assigned to its own subagent.
 - For each issue, state the code path changed and the verification performed.
 - Call out anything skipped because the issue was non-standard, blocked, or needed manual verification.
+- Do not mention deleted or missing issue files unless the user explicitly asked about them.
