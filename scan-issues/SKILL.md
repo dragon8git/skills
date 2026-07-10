@@ -42,6 +42,21 @@ description: "Scan `.issues` markdown task files that currently exist in the wor
 11. After each issue:
    - run the smallest real verification the repo supports
    - if the repo has no CLI build/test path, do static verification and report that manual validation is still needed
+   - if code or issue-relevant files were changed for the issue, append one new development log block to the end of the issue body before appending any next review template
+   - the development log must be append-only; never overwrite or rewrite older development logs
+   - use the next sequential round number and this exact structure:
+
+```md
+## Dev Summary 第 n 轮
+
+- 开发纪要：
+```
+
+   - fill the block with concise factual content from the current round only
+   - write the block like a developer reporting work results to a lead: concise, concrete, outcome-first, and easy for the next coding agent to continue from
+   - `开发纪要` is required and should summarize what was actually delivered this round, what key implementation decisions were made, which files or modules were touched when that context matters, and any follow-up hints, caveats, manual verification notes, review context, dependency notes, or handoff information that the next agent should not rediscover
+   - do not pad the summary with generic process language; record only information that materially helps later review or follow-up development
+   - if no reliable implementation was made, do not fabricate a development log; instead keep `status: todo` and report the block was not appended
    - move the issue `status` forward:
      - `review` when code is done but still needs manual/product verification
      - `done` only after the required verification is actually completed
@@ -60,8 +75,9 @@ description: "Scan `.issues` markdown task files that currently exist in the wor
 ```
 
    - if review later fails and the issue returns to `todo`, fill the latest `Review 第 n 轮` section instead of deleting older requirement text or review history
+   - when a later round resumes work on the same issue, append a new `Dev Summary 第 n 轮` block for that round instead of editing prior summary blocks
 12. If subagent capability is unavailable in the current harness, stop and report that this skill cannot execute as designed instead of silently falling back to single-agent implementation.
-13. Do not silently rewrite issue content, filenames, or frontmatter shape here except for the intentional issue-log updates above: advancing `status`, updating `links`, and appending the next empty review template.
+13. Do not silently rewrite issue content, filenames, or frontmatter shape here except for the intentional issue-log updates above: advancing `status`, updating `links`, appending a new `Dev Summary 第 n 轮` block, and appending the next empty review template.
 14. Do not perform repository repair or issue inventory reconciliation here:
    - no git-based recovery
    - no recreating issue files from history
@@ -73,6 +89,7 @@ description: "Scan `.issues` markdown task files that currently exist in the wor
 - Report which eligible issues were deferred because they exceeded the per-run limit of 5.
 - Report that each issue was assigned to its own subagent.
 - For each issue, state the code path changed and the verification performed.
+- For each issue, state whether a new `Dev Summary 第 n 轮` block was appended.
 - Call out whether a `markmap` supplement was read for that issue when present, or whether it was unavailable.
 - Call out anything skipped because the issue was non-standard, blocked, or needed manual verification.
 - Do not mention deleted or missing issue files unless the user explicitly asked about them.
