@@ -1,6 +1,6 @@
 ---
 name: issues2okf
-description: Convert user-provided requirements, bug reports, or development requests into one or more standardized `.issues/*.md` TODO files only. This skill records work items and must not implement fixes, edit product code, run builds, or perform verification beyond writing the issue documents themselves.
+description: Convert user-provided requirements, bug reports, annotated images, or development requests into one or more standardized `.issues/*.md` TODO files only. This skill records work items and must not implement fixes, edit product code, run builds, or perform verification beyond writing the issue documents themselves.
 ---
 
 # Issues to OKF
@@ -52,25 +52,33 @@ Your job is to preserve the user's real intent while rewriting it into a concise
    - identify the real problem being solved
    - distinguish goal, scope, constraints, and expected outcome
    - remove conversational noise, but do not change the user's meaning
-4. Before generating files, produce an internal planning pass for yourself:
+4. Handle annotated-image-to-issue requests when the prompt contains intent such as `理解图片`, `image2issue`, `label2issue`, `理解标注`, `理解万岁`, or `李姐万岁`, together with an image attachment, image path, or clearly identified visual reference:
+   - inspect the image and treat explicit arrows, boxes, labels, strike-throughs, and nearby annotation text as requirement evidence
+   - convert only legible, confirmed annotations into concise issue requirements; do not invent values, fields, interactions, or business rules from unmarked visual details
+   - preserve the exact image path in the issue `links` or `备注` when a local path was supplied
+   - use the surrounding screen only to identify the page/module and explain the annotation; do not treat every visible element as a requested change
+   - combine annotations for one page and one coherent UI slice into one issue; split only when they cover independent pages or deliverables
+   - if a label is unreadable or its requested change is materially ambiguous, ask a concise clarification question before creating the issue
+   - when the trigger phrase appears without an accessible visual reference, follow the normal clarification gate instead of fabricating image findings
+5. Before generating files, produce an internal planning pass for yourself:
    - summarize the core goal in one sentence
    - determine the minimum in-scope boundary
    - determine what is clearly out of scope
    - decide whether the request should stay as one issue or split into multiple issues
    - use this planning pass to improve issue clarity, but do not expose chain-of-thought or verbose internal reasoning
-5. Split the request only when it naturally contains more than one independently executable task:
+6. Split the request only when it naturally contains more than one independently executable task:
    - keep one issue when the work is one coherent slice
    - split into multiple issues when the request clearly contains separate pages, separate bugs, separate integrations, or separate deliverables
    - prefer the smallest useful split; do not create artificial subtasks
-6. If the request is multi-part but still ambiguous, ask a brief split-confirmation question before generating files.
-7. Create new `.md` files under `.issues/` with readable titles.
+7. If the request is multi-part but still ambiguous, ask a brief split-confirmation question before generating files.
+8. Create new `.md` files under `.issues/` with readable titles.
    - do not modify non-issue workspace files as part of this skill
-8. Detect whether the user explicitly asks for a mind map before enabling the mind-map extension:
+9. Detect whether the user explicitly asks for a mind map before enabling the mind-map extension:
    - activate only when the prompt clearly contains intent such as `xmind`, `mind`, `思维导图`, `mindmap`, `markmap`, `Mermaid`, or an explicit request like `需求有点复杂，请创建思维导图`
    - do not create a mind map by default for ordinary issue requests
    - when activated, generate a Markmap markdown file at `.issues/.markmap/{same-name-as-issue}.md`
    - use the mind map to define the problem boundary: what to do, what not to do, and the scope edges that keep execution focused
-9. Infer the smallest correct frontmatter values from the source note:
+10. Infer the smallest correct frontmatter values from the source note:
    - `status`: `todo`, `doing`, `review`, or `done` (default `todo`)
    - `type`: `dev`, `bug`, or the closest simple category
    - `title`: short human title
@@ -79,13 +87,13 @@ Your job is to preserve the user's real intent while rewriting it into a concise
    - `tags`: short lowercase labels from the page, module, or topic
    - `timestamp`: `YYYY-MM-DD`
    - `markmap`: relative path like `.issues/.markmap/{name}.md` only when the explicit mind-map trigger matched
-10. When information is sufficient and no clarification is needed, you may optionally show a brief pre-write summary before creating files:
+11. When information is sufficient and no clarification is needed, you may optionally show a brief pre-write summary before creating files:
    - `核心目标`
    - `范围边界`
    - `拆分决策`
    - keep it short and practical; this is a user-facing planning summary, not a long analysis
-11. Write the issue body as a compact professional spec, not as raw chat transcript.
-12. When the explicit mind-map trigger matched, also write a Markmap outline markdown file:
+12. Write the issue body as a compact professional spec, not as raw chat transcript.
+13. When the explicit mind-map trigger matched, also write a Markmap outline markdown file:
    - file path must match `.issues/.markmap/{same-name-as-issue}.md`
    - the outline must stay problem-first and boundary-first
    - use only these three top-level core nodes:
@@ -95,7 +103,7 @@ Your job is to preserve the user's real intent while rewriting it into a concise
    - do not add other top-level nodes unless the user explicitly asked for them
    - each branch under the three core nodes should stay short, concrete, and boundary-oriented
    - avoid turning the mind map into endless brainstorming; its job is scope confirmation, not idea expansion
-13. Preserve user-provided paths exactly when they are part of the requirement context:
+14. Preserve user-provided paths exactly when they are part of the requirement context:
    - local absolute file paths such as `/Users/lee/Pictures/example.png` must remain unchanged
    - do not shorten paths to basenames such as `example.png`
    - do not silently rewrite absolute paths into relative paths, URLs, or markdown links unless the user explicitly asked for that format
@@ -177,6 +185,7 @@ Body writing rules:
 - Do not preserve raw conversational wording when a clearer professional structure is possible.
 - Keep links exact unless formatting them as a YAML list improves clarity.
 - Preserve user-provided local file paths exactly; never truncate them to filenames or rewrite them unless the user explicitly requests a different representation.
+- For annotated-image requests, ground requirements in the explicit image annotations and preserve the supplied image path as evidence; do not infer additional changes from unmarked UI.
 - Do not generate `验收` or other testing-oriented sections by default; include them only when the user explicitly requests that level of test or acceptance detail.
 - Use a brief planning-style summary only when it helps the user confirm direction quickly; do not let the summary replace the actual issue file output.
 - Prefer concise, layered, execution-ready writing over transcript-style recording.
