@@ -44,9 +44,9 @@ Your job is to preserve the user's real intent while rewriting it into a concise
    - if the user wants historical `.issues` files rewritten, that is outside this skill's scope
 2. Before writing any issue, decide whether the information is sufficient:
    - if the requirement is already clear enough to write an execution-ready issue, continue
-   - if key facts are missing and would materially change the issue structure, split, or scope, ask concise clarification questions first and do not create the issue yet
-   - ask only for information that affects goal, scope boundary, task split, dependency, or source of truth
-   - prefer a small number of high-value questions; do not start an open-ended interview
+   - ask only when no answer would make it impossible to responsibly define an execution plan; otherwise make the smallest safe assumption and record it in `备注`
+   - if key facts are missing and would materially change the issue structure, split, scope, success criterion, edge-case handling, exclusion boundary, dependency, or source of truth, ask concise clarification questions first and do not create the issue yet
+   - ask only the minimum number of high-leverage questions needed to resolve those decisions; do not start an open-ended interview
    - when clarification is required, stop after asking; wait for the user's answer instead of drafting a speculative issue
 3. First define the requirement before recording it:
    - identify the real problem being solved
@@ -111,7 +111,7 @@ Your job is to preserve the user's real intent while rewriting it into a concise
 
 ## Clarification Gate
 
-Ask clarification questions before writing issue files when any of the following is true:
+Ask clarification questions before writing issue files only when an answer is necessary to responsibly define an execution plan, including when:
 
 - the target page, module, scenario, or repo path is unclear
 - the request mixes multiple possible deliverables and the split would change ownership or execution order
@@ -127,8 +127,10 @@ Do not ask clarification questions when:
 
 When asking questions:
 
-- ask at most 1-3 short questions
-- ask only questions that unblock issue quality
+- ask 1-3 short multiple-choice questions at most; ask fewer whenever possible
+- put the recommended option first and mark it as `（推荐）`
+- make options mutually exclusive and state the practical consequence of each option in one short sentence
+- ask only questions that unblock the goal, constraints, success standard, edge cases, or explicit exclusions
 - do not generate the `.issues/*.md` files in the same response
 - do not ask for implementation details that belong to the later development phase
 
@@ -169,7 +171,7 @@ Body writing rules:
 ## Formatting Rules
 
 - Only create new standardized issue files from the current user input.
-- If key requirement information is missing, ask concise clarification questions first instead of drafting speculative issues.
+- Ask clarification questions only when an answer is required to responsibly define an execution plan; use at most 1-3 short multiple-choice questions, with the recommended option first.
 - Treat successful issue-file creation as the end of the task unless the user explicitly asks for a separate next step.
 - Write new `.md` files under `.issues/` instead of editing unrelated files.
 - Do not edit source code, tests, configs, assets, or project docs outside `.issues/` and optional `.issues/.markmap/`.
