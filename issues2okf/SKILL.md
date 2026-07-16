@@ -71,7 +71,12 @@ Your job is to preserve the user's real intent while rewriting it into a concise
    - split into multiple issues when the request clearly contains separate pages, separate bugs, separate integrations, or separate deliverables
    - prefer the smallest useful split; do not create artificial subtasks
 7. If the request is multi-part but still ambiguous, ask a brief split-confirmation question before generating files.
-8. Create new `.md` files under `.issues/` with readable titles.
+8. Create new `.md` files under `.issues/` with a sequential numeric filename:
+   - inspect only the current `.issues/` filesystem view, excluding `.issues/.markmap/`
+   - find filenames matching `^<number>_<title>.md$`, take the largest number, and use the next integer; start at `1` when no numbered issue exists
+   - name each new issue `<next-number>_<中文标题>.md`, for example `.issues/238_检测项目列表对接搜索接口.md`; do not use English slugs as the filename
+   - when one request creates multiple issue files, allocate consecutive numbers in the creation order
+   - do not use Git history, deleted files, or inferred historical numbering to calculate the next number
    - do not modify non-issue workspace files as part of this skill
 9. Detect whether the user explicitly asks for a mind map before enabling the mind-map extension:
    - activate only when the prompt clearly contains intent such as `xmind`, `mind`, `思维导图`, `mindmap`, `markmap`, `Mermaid`, or an explicit request like `需求有点复杂，请创建思维导图`
@@ -85,7 +90,10 @@ Your job is to preserve the user's real intent while rewriting it into a concise
    - `description`: one-sentence summary
    - `links`: source URL or URLs
    - `tags`: short lowercase labels from the page, module, or topic
-   - `timestamp`: `YYYY-MM-DD`
+   - `timestamp`: create-time local timestamp in the exact quoted format `MM月DD日 周X ☀️ HH:mm` or `MM月DD日 周X 🌙 HH:mm`, for example `timestamp: "07月16日 周四 ☀️ 14:35"`
+     - use `周一` through `周日` for the weekday
+     - use `☀️` from `06:00` through `17:59`, and `🌙` from `18:00` through `05:59`
+     - use the local timezone of the environment creating the issue; do not omit leading zeroes from month, day, hour, or minute
    - `markmap`: relative path like `.issues/.markmap/{name}.md` only when the explicit mind-map trigger matched
 11. When information is sufficient and no clarification is needed, you may optionally show a brief pre-write summary before creating files:
    - `核心目标`
@@ -183,6 +191,7 @@ Body writing rules:
 - Do not invent requirements or add new work items.
 - When splitting a direct requirement, preserve the source scope exactly; split for execution clarity, not for expansion.
 - Default `status` to `todo` unless the source note clearly indicates otherwise.
+- Write `timestamp` as the issue creation time in the exact quoted format `MM月DD日 周X ☀️ HH:mm` or `MM月DD日 周X 🌙 HH:mm`; use `☀️` from `06:00` through `17:59` and `🌙` otherwise.
 - Do not add a `markmap` frontmatter field unless the explicit mind-map trigger matched.
 - Do not preserve raw conversational wording when a clearer professional structure is possible.
 - Keep links exact unless formatting them as a YAML list improves clarity.

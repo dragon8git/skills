@@ -1,4 +1,4 @@
 interface:
   display_name: "Issues to OKF"
   short_description: "Turn raw requests into structured .issues TODO specs"
-  default_prompt: "Use $issues2okf to convert my requirement, bug, or dev request into one or more structured `.issues/*.md` TODO docs with YAML frontmatter, readable filenames, and concise professional issue content."
+  default_prompt: "Use $issues2okf to convert my requirement into concise, sequentially numbered .issues TODO docs with YAML frontmatter. Use a quoted timestamp in the format MM月DD日 周X ☀️/🌙 HH:mm."
