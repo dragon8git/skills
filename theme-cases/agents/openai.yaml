@@ -1,0 +1,4 @@
+interface:
+  display_name: "Theme Cases"
+  short_description: "Preview multiple UI themes before selecting one"
+  default_prompt: "Use $theme-cases to create and preview several visual directions for this component."
