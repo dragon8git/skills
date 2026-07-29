@@ -1,0 +1,4 @@
+interface:
+  display_name: "WxApp Subpackages Inspect"
+  short_description: "Inspect WeChat Mini Program subpackage runtime imports"
+  default_prompt: "Inspect this UniApp X project for unsafe WeChat Mini Program cross-subpackage runtime imports, report risks, and propose the smallest safe fixes."
