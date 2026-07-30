@@ -1,0 +1,4 @@
+interface:
+  display_name: "FFmpeg 视频压缩"
+  short_description: "Compress local videos with balanced HEVC quality and file size"
+  default_prompt: "Use $ffmpeg-zip to compress this local video with balanced quality and size."
