@@ -1,0 +1,4 @@
+interface:
+  display_name: "HBuilderX 微信发布"
+  short_description: "用 HBuilderX CLI 打包上传微信小程序版本"
+  default_prompt: "使用 $hbuldx-wx-publish 发布当前 UniApp X 微信小程序。"
