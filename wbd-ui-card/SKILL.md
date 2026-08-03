@@ -40,7 +40,7 @@ Use this hierarchy when the confirmed fields support it:
 
 - Header: use an icon, primary name, and at most one subordinate context line. Make the title multi-line when hierarchy text is long; use `wbd-overflow-scroll-text` only for values that must stay on one line.
 - Status anchor: place a confirmed status, count, or sequence at the right of the header. Use a compact semantic block with a label and emphasized value. Do not create a status from a guessed field.
-- Metadata: use continuous rows with `jk-icon + neutral label` left and `font-weight: 600`, right-aligned value right. Keep rows about `58rpx` high with thin separators. Use `wbd-overflow-scroll-text align="end"` for long identifiers, locations, and certificate numbers.
+- Metadata: use continuous rows with `jk-icon + neutral label` left and `font-weight: 600`, right-aligned value right. Default to a breathable rhythm: `min-height: 70rpx` with `padding: 8rpx 4rpx` and thin separators. Only use the denser `58rpx` row when the card has many confirmed fields and space is materially constrained. Use `wbd-overflow-scroll-text align="end"` for long identifiers, locations, and certificate numbers. When a card includes a project address alongside date/person fields, place the address as the final metadata row.
 - Semantic emphasis: color only fields with trustworthy business meaning. For example, use red for an actual nonconforming count and amber for a known deadline. A key count may use a subtle tinted row and left rail, but do not turn every row into a pill or nested card.
 - Actions: separate them with a top divider. For multiple lightweight actions, use equal-width icon-plus-label buttons with blue primary/edit and red destructive semantics. Reserve `wbd-feishu-tabbar` for page-level fixed actions, not card-local actions.
 
@@ -63,7 +63,7 @@ Do not merge unrelated filters or hide essential selection state. Do not introdu
 .item-title { color:#18202c; font-size:30rpx; font-weight:700; line-height:40rpx; }
 .item-subtitle { margin-top:4rpx; color:#687487; font-size:23rpx; line-height:32rpx; }
 .meta { margin-top:20rpx; border-top:1rpx solid #edf1f6; }
-.meta-item { min-height:58rpx; padding:0 4rpx; border-bottom:1rpx solid #f0f3f7; justify-content:space-between; }
+.meta-item { min-height:70rpx; padding:8rpx 4rpx; border-bottom:1rpx solid #f0f3f7; justify-content:space-between; }
 .meta-label { flex:1; min-width:0; flex-direction:row; align-items:center; }
 .meta-label text { margin-left:10rpx; color:#687487; font-size:23rpx; }
 .meta-value { max-width:52%; margin-left:24rpx; color:#26384d; font-size:23rpx; font-weight:600; text-align:right; }
