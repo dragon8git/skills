@@ -1,0 +1,4 @@
+interface:
+  display_name: "WBD UI: Card"
+  short_description: "统一 WBD UniApp X 业务卡片的信息层级与操作区视觉"
+  default_prompt: "Use $wbd-ui-card to polish this WBD UniApp X list card while preserving its real data and actions."

@@ -1,0 +1,4 @@
+interface:
+  display_name: "WBD UI: Form"
+  short_description: "统一 UniApp X 业务表单的选择器与输入控件视觉"
+  default_prompt: "Use $wbd-ui-form to align this WBD UniApp X business form with the established field-shell design."
