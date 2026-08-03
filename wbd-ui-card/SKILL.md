@@ -35,6 +35,7 @@ Use this hierarchy when the confirmed fields support it:
     </view>
   </view>
   <view v-if="hasActions" class="card-actions">...</view>
+  <view v-else-if="canNavigateToDetail" class="card-link"><text>查看详情</text><jk-icon color="#8e8e93" name="mdi:arrow-right" size="24rpx" /></view>
 </view>
 ```
 
@@ -43,6 +44,7 @@ Use this hierarchy when the confirmed fields support it:
 - Metadata: use continuous rows with `jk-icon + neutral label` left and `font-weight: 600`, right-aligned value right. Default to a breathable rhythm: `min-height: 70rpx` with `padding: 8rpx 4rpx` and thin separators. Only use the denser `58rpx` row when the card has many confirmed fields and space is materially constrained. Use `wbd-overflow-scroll-text align="end"` for long identifiers, locations, and certificate numbers. When a card includes a project address alongside date/person fields, place the address as the final metadata row.
 - Semantic emphasis: color only fields with trustworthy business meaning. For example, use red for an actual nonconforming count and amber for a known deadline. A key count may use a subtle tinted row and left rail, but do not turn every row into a pill or nested card.
 - Actions: separate them with a top divider. For multiple lightweight actions, use equal-width icon-plus-label buttons with blue primary/edit and red destructive semantics. Reserve `wbd-feishu-tabbar` for page-level fixed actions, not card-local actions.
+- Detail navigation: when a card has no card-local buttons and the existing card click already navigates to another page, add the `/pages/wbd/detection/index.uvue` `card-link` affordance after metadata: `查看详情` plus a neutral right arrow, separated by a top divider and right-aligned. It is a visual cue only: retain the existing card click handler, URL, parameters, and navigation guards. Do not add it to cards with actions or cards without confirmed navigation behavior.
 
 ## Filter and Summary
 
@@ -68,6 +70,8 @@ Do not merge unrelated filters or hide essential selection state. Do not introdu
 .meta-label text { margin-left:10rpx; color:#687487; font-size:23rpx; }
 .meta-value { max-width:52%; margin-left:24rpx; color:#26384d; font-size:23rpx; font-weight:600; text-align:right; }
 .card-actions { margin-top:20rpx; padding-top:18rpx; border-top:1rpx solid #edf1f6; gap:16rpx; }
+.card-link { margin-top:14rpx; padding-top:14rpx; border-top:1rpx solid #edf0f5; flex-direction:row; align-items:center; justify-content:flex-end; }
+.card-link text { margin-right:6rpx; color:#6e6e73; font-size:23rpx; }
 ```
 
 ## Guardrails

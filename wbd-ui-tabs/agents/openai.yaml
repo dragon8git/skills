@@ -1,0 +1,4 @@
+interface:
+  display_name: "WBD Tab Counts"
+  short_description: "Design count-aware WBD status tabs"
+  default_prompt: "Use $wbd-ui-tabs to add count-aware status tabs to this WBD UniApp X page."
