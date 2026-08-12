@@ -1,0 +1,4 @@
+interface:
+  display_name: "OCR Excel Luckysheet"
+  short_description: "稳定集成 Luckysheet Excel 预览与候选浮层"
+  default_prompt: "Use $ocr-excel-luckysheet to integrate a stable full-screen Luckysheet preview with contextual Excel candidate selection."
