@@ -1,0 +1,4 @@
+interface:
+  display_name: "WBD 详情骨架加载"
+  short_description: "WBD UniApp X detail skeleton and silent refresh patterns"
+  default_prompt: "Use $wbd-ui-skeleton to improve loading and refresh states for a WBD UniApp X detail page."
