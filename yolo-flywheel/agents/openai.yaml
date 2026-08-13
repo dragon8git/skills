@@ -1,0 +1,4 @@
+interface:
+  display_name: "YOLO Flywheel"
+  short_description: "Plan, dispatch, and review modular YOLO delivery."
+  default_prompt: "Use $yolo-flywheel to plan the next YOLO Platform delivery cycle."
