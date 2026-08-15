@@ -1,0 +1,4 @@
+interface:
+  display_name: "WBD UI Android"
+  short_description: "Run and capture UniApp X screens on Android emulators."
+  default_prompt: "Use $wbd-ui-android to deploy a UniApp X app to the Android emulator and capture a screenshot for visual verification."

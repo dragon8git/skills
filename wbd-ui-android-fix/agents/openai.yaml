@@ -1,0 +1,4 @@
+interface:
+  display_name: "修复 UniApp X Android CSS"
+  short_description: "扫描并修复 uvue 的 Android CSS 编译问题"
+  default_prompt: "使用 $wbd-ui-android-fix 扫描并修复 UniApp X 项目中的 Android CSS 编译问题。"
