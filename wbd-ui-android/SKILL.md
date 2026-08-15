@@ -47,6 +47,28 @@ Launch a specific page for isolated visual QA:
 
 `launch` restarts/deploys the app, not the Android virtual device. Do not run `adb reboot`, clear app data, or clear login state unless the user explicitly requests that state-changing operation.
 
+## Android CSS compatibility
+
+Treat an Android compiler warning for `inset` as a functional defect on full-screen or anchored overlays. Android UTS CSS may ignore `inset: 0`, leaving a preview mask, dialog, or thumbnail status overlay without reliable dimensions.
+
+Scan the supported app-owned sources before visual QA:
+
+```bash
+rg -n --glob '*.uvue' '\binset\s*:' \
+  "$project/pages/wbd" "$project/components" "$project/windows" 2>/dev/null
+```
+
+Replace each `inset: 0` with its equivalent explicit edges; preserve `position` and all other layout declarations:
+
+```css
+top: 0;
+right: 0;
+bottom: 0;
+left: 0;
+```
+
+Use the same replacement for both `position: fixed` screen masks and `position: absolute` in-card overlays. Re-run the scan after editing, then compile Android and visually exercise the affected overlay; a successful compile alone is insufficient.
+
 ## Capture and inspect
 
 Wait for HBuilderX to report that the app started, then capture the exact emulator pixels:
