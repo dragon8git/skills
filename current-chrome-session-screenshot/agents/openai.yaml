@@ -1,0 +1,4 @@
+interface:
+  display_name: "Current Chrome Screenshot"
+  short_description: "Capture the first tab in the existing Chrome session."
+  default_prompt: "Use $current-chrome-session-screenshot to capture the first tab of my currently open Chrome browser without opening a new tab or window."
