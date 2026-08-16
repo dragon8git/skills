@@ -69,6 +69,31 @@ left: 0;
 
 Use the same replacement for both `position: fixed` screen masks and `position: absolute` in-card overlays. Re-run the scan after editing, then compile Android and visually exercise the affected overlay; a successful compile alone is insufficient.
 
+## Gradient fidelity
+
+Do not simplify Android gradients to two colors merely for compatibility. Android UTS CSS supports multi-stop `linear-gradient`; removing H5/微信中间色标 makes the transition wash out early and visibly changes the design.
+
+Audit all app-owned gradient branches before changing them:
+
+```bash
+rg -n -C 3 --glob '*.uvue' 'linear-gradient' \
+  "$project/pages/wbd" "$project/components" "$project/windows"
+```
+
+For each `WEB || MP-WEIXIN` / `APP-ANDROID` pair, preserve the same colors, stop positions, and stop count. Use Android-compatible direction keywords instead of copying an angle when needed:
+
+```css
+/* WEB || MP-WEIXIN */
+background-image: linear-gradient(180deg, #0071e3 0%, #2b94ff 46%, #d9ecff 92%, #f6f7fb 100%);
+
+/* APP-ANDROID */
+background-image: linear-gradient(to bottom, #0071e3 0%, #2b94ff 46%, #d9ecff 92%, #f6f7fb 100%);
+```
+
+Use `to bottom right` for the established diagonal Android fallback. Preserve every intermediate stop, including transparent overlay stops such as `rgba(...) 0%, rgba(...) 56%, rgba(...) 100%`. Two-stop gradients with the same endpoints are already equivalent; do not add speculative stops.
+
+After the source audit, visually inspect one emulator page for each distinct gradient family (for example, vertical hero, diagonal hero, and image shade). If a system permission dialog covers a target page, do not change the permission state without user instruction; report that visual check as blocked while still recording the source and compile evidence.
+
 ## Capture and inspect
 
 Wait for HBuilderX to report that the app started, then capture the exact emulator pixels:

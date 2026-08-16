@@ -1,0 +1,4 @@
+interface:
+  display_name: "Firstmate Flywheel"
+  short_description: "Plan, dispatch, and review modular CV platform delivery."
+  default_prompt: "Use $firstmate-flywheel to plan the next CV platform delivery cycle."
