@@ -1,0 +1,4 @@
+interface:
+  display_name: "Oh My Goal"
+  short_description: "为 /goal 产出可确认、可验证且可执行的计划与验收清单"
+  default_prompt: "Use $oh-my-goal to prepare a plan and acceptance checklist for a /goal request."
