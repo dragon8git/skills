@@ -1,0 +1,4 @@
+interface:
+  display_name: "Web of Belief"
+  short_description: "Maintain a structured, evidence-aware belief web"
+  default_prompt: "Help me initialize or maintain a Web of Belief knowledge base in this workspace."

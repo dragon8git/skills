@@ -1,0 +1,4 @@
+interface:
+  display_name: "CAD GeoJSON Dilution"
+  short_description: "Reduce CAD-derived GeoJSON for Web maps"
+  default_prompt: "Use $cad-geojson-dilution to compress this CAD-derived GeoJSON while preserving a usable map outline."

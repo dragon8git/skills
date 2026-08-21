@@ -1,0 +1,4 @@
+interface:
+  display_name: "HBuilderX H5 发行"
+  short_description: "构建并校验 UniApp X H5_PRO 本地产物"
+  default_prompt: "Use $hbuldx-h5-publish to build and validate this UniApp X H5_PRO artifact locally."
