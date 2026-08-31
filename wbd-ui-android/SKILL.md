@@ -47,6 +47,25 @@ Launch a specific page for isolated visual QA:
 
 `launch` restarts/deploys the app, not the Android virtual device. Do not run `adb reboot`, clear app data, or clear login state unless the user explicitly requests that state-changing operation.
 
+## Native modal and Toast timing
+
+H5, 微信小程序, and the emulator do not prove that a physical Android device has the same native-window timing. On a physical Android device, `uni.showModal` can invoke its confirmation callback before its native window has finished being destroyed. If that callback sends a request which fails quickly, an immediate `uni.showToast` can be dismissed by the modal teardown and appear as a brief flash.
+
+When diagnosing this pattern:
+
+1. Add a temporary Toast outside any modal with `duration: 5000`. If it stays visible, the Toast API itself is not the cause; remove the probe after the test.
+2. Reproduce on the affected physical device and correlate the business error, `PopupWindow`, and `DecorViewImmersiveImpl.onDetachedFromWindow` logs. A filtered capture can use:
+
+```bash
+app_pid="$(/Users/lee/Library/Android/sdk/platform-tools/adb -s "$device_id" shell pidof io.dcloud.uniappx | tr -d '\r')"
+/Users/lee/Library/Android/sdk/platform-tools/adb -s "$device_id" logcat -T 1 --pid="$app_pid" -v threadtime \
+  JSConsole:I console:I ViewRootImpl:I DecorViewImmersiveImpl:D WindowOnBackDispatcher:W '*:S'
+```
+
+3. Do not infer a failed-request reload from the symptom. Check that data reload/navigation remains only in the success path.
+
+For a confirmed collision, route every Toast caused by that confirmation path (success, failure, or immediate local feedback) through a shared helper such as `app/utils/modal-toast.uts` `showToastAfterModal()`. It waits about `400ms` only on `APP-ANDROID`, while H5 and 微信小程序 remain immediate. Direct/dev-tool paths that bypass the confirmation dialog must keep normal `uni.showToast`. Retain normal request-lock cleanup, do not delay the request, and do not reload on failure. Re-test on the affected physical device after the change.
+
 ## Android CSS compatibility
 
 Treat an Android compiler warning for `inset` as a functional defect on full-screen or anchored overlays. Android UTS CSS may ignore `inset: 0`, leaving a preview mask, dialog, or thumbnail status overlay without reliable dimensions.

@@ -1,0 +1,6 @@
+interface:
+  display_name: "发送压缩邮件"
+  short_description: "下载文件、压缩 ZIP 并按确认后发送 SMTP 邮件"
+  default_prompt: "Use $send-email to download a file, zip it, and email it to the default recipient."
+policy:
+  allow_implicit_invocation: true

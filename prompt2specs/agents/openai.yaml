@@ -1,0 +1,4 @@
+interface:
+  display_name: "Prompt to Specs"
+  short_description: "Turn prompts into reviewable specs"
+  default_prompt: "Turn this requirement into a reviewable specification."
