@@ -1,0 +1,4 @@
+interface:
+  display_name: "xkcd 中文漫画"
+  short_description: "将 xkcd 漫画中的英文直接替换为中文，输出图片与离线 HTML"
+  default_prompt: "使用 $xkcd-zh 将 https://xkcd.com/1779/ 中文化，直接替换图中文字并输出 HTML。"

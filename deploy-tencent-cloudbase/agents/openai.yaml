@@ -1,0 +1,4 @@
+interface:
+  display_name: "腾讯云 CloudBase 部署"
+  short_description: "部署与更新 CloudBase 应用，核对流量切换、公网验收及费用边界"
+  default_prompt: "使用 $deploy-tencent-cloudbase 部署或更新当前应用，检查现有资源、流量切换和公网运行结果。"

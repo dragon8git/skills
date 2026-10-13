@@ -1,0 +1,4 @@
+interface:
+  display_name: "3b1b GIF"
+  short_description: "制作 3Blue1Brown 风格的数学讲解动画并导出 GIF"
+  default_prompt: "使用 $3b1b-gif 制作一个展示二维向量相加的数学动画，导出可循环播放的 GIF。"

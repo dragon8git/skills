@@ -1,4 +1,4 @@
 interface:
-  display_name: "Prompt to Specs"
-  short_description: "Turn prompts into reviewable specs"
-  default_prompt: "Turn this requirement into a reviewable specification."
+  display_name: "Prompt to Project Rules"
+  short_description: "Save reusable project rules and implement the request"
+  default_prompt: "Use $prompt2specs to extract any lasting development rules into AGENTS.md, then implement and verify my request without turning one-off actions into permanent rules."
