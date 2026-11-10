@@ -31,8 +31,6 @@
 
 ## CLI/API 路径
 
-优先已有且适合目标的官方工具。不为部署复制浏览器Cookie到CLI，也不把账户密钥存入技能。先查看已安装版本的帮助，明确环境、服务、源码上下文与端口；支持dry-run时可用其预检，但它不证明真正发布可用。不要默认使用 `--force` 或 `--yes`。
-
-当前CLI文档有 `tcb cloudrun deploy`，并区分灰度/等待等选项；每次执行以实际版本为准。注意 `tcb cloudrun run` 的当前文档限定函数型服务，不能用它代替容器镜像实测。API方式同样分别核对任务、版本和流量。
+默认先使用 [CLI 发布流程](cli-deployment.md)，该文件区分静态网站应用版本、文件上传与云托管服务部署。只有用户指定控制台、CLI 缺少所需能力或经排障仍不可用时，采用本文控制台流程；认证挑战和服务开通仍按用户操作边界处理。API 方式同样分别核对任务、版本和实际生效内容。
 
 官方参考：[部署方式](https://docs.cloudbase.net/run/deploy/deploy/introduce)、[部署失败排障](https://docs.cloudbase.net/run/faq/deploy)、[环境变量](https://docs.cloudbase.net/run/deploy/configuring/environment/envs)、[流量配置](https://docs.cloudbase.net/run/deploy/traffic-setting)、[CLI部署](https://docs.cloudbase.net/cli-v1/cloudrun/deploy)、[CLI本地运行](https://docs.cloudbase.net/en/cli-v1/cloudrun/run)。
