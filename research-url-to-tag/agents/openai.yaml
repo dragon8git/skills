@@ -1,0 +1,3 @@
+interface:
+  display_name: "Research URL to Tag"
+  short_description: "调研链接并生成标签笔记"
